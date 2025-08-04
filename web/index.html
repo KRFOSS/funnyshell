@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 ROKFOSS FunnyShell - 실시간 쉘 공유</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎮 ROKFOSS FunnyShell</h1>
+            <div class="status">
+                <span id="connectionStatus" class="disconnected">연결 끊김</span>
+                <span id="userCount">0명 접속중</span>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <div class="terminal-container">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="control red"></span>
+                        <span class="control yellow"></span>
+                        <span class="control green"></span>
+                    </div>
+                    <span class="terminal-title">공유 터미널</span>
+                </div>
+                <div id="terminal" class="terminal"></div>
+                <div class="input-container">
+                    <span class="prompt">$</span>
+                    <input type="text" id="commandInput" placeholder="명령어를 입력하세요..." autocomplete="off">
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <h3>💬 실시간 채팅</h3>
+                    </div>
+                    <div id="chatMessages" class="chat-messages"></div>
+                    <div class="chat-input-container">
+                        <input type="text" id="chatInput" placeholder="채팅 메시지..." autocomplete="off">
+                        <button id="sendChat">전송</button>
+                    </div>
+                </div>
+
+                <div class="info-container">
+                    <div class="info-header">
+                        <h3>ℹ️ 정보</h3>
+                    </div>
+                    <div class="info-content">
+                        <p><strong>사용법:</strong></p>
+                        <ul>
+                            <li>하단 입력창에 명령어 입력</li>
+                            <li>Enter로 명령어 실행</li>
+                            <li>모든 참가자가 같은 터미널 공유</li>
+                            <li>실시간으로 다른 사람의 명령어 확인</li>
+                        </ul>
+                        <p><strong>⚠️ 주의사항:</strong></p>
+                        <ul>
+                            <li>위험한 명령어 사용 금지</li>
+                            <li>시스템 파일 수정 금지</li>
+                            <li>재미있게 놀되 서로 배려하기</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 로그인 모달 -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <h2>🎯 닉네임을 입력하세요</h2>
+            <input type="text" id="usernameInput" placeholder="닉네임" maxlength="20" autocomplete="off">
+            <button id="joinButton">참가하기</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
