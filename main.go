@@ -31,14 +31,14 @@ type Client struct {
 }
 
 type Hub struct {
-	clients     map[*Client]bool
-	broadcast   chan Message
-	register    chan *Client
-	unregister  chan *Client
-	ptyFile     *os.File
-	cmd         *exec.Cmd
-	mutex       sync.RWMutex
-	lastOutput  string // 마지막 출력을 저장해서 새 클라이언트에게 전송
+	clients    map[*Client]bool
+	broadcast  chan Message
+	register   chan *Client
+	unregister chan *Client
+	ptyFile    *os.File
+	cmd        *exec.Cmd
+	mutex      sync.RWMutex
+	lastOutput string // 마지막 출력을 저장해서 새 클라이언트에게 전송
 }
 
 var upgrader = websocket.Upgrader{
@@ -88,20 +88,20 @@ func (h *Hub) run() {
 			h.mutex.Lock()
 			h.clients[client] = true
 			h.mutex.Unlock()
-			
+
 			// 새 클라이언트에게 환영 메시지
 			welcomeMsg := Message{
 				Type: "system",
 				Data: fmt.Sprintf("🎉 %s님이 참가했습니다! (총 %d명 접속중)", client.username, len(h.clients)),
 			}
 			h.broadcastToAll(welcomeMsg)
-			
+
 			// 새 클라이언트에게 현재 프롬프트 표시
 			go func() {
 				time.Sleep(500 * time.Millisecond)
 				h.writeToShell("\n") // 새 프롬프트 표시
 			}()
-			
+
 			log.Printf("클라이언트 등록: %s (총 %d명)", client.username, len(h.clients))
 
 		case client := <-h.unregister:
